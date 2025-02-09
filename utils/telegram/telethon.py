@@ -143,24 +143,26 @@ class TelethonAccount(AccountInterface):
 
     async def us3r(self, referral_code: Optional[str] = None):
         try:
-            if isinstance(self.client.session, StringSession):
-                await self.client.start()
-                me = await self.client.get_me()
-                meid=me.first
-                await self.client.disconnect()
-                self.str_sess1 = self.client.session.save()
-                self.str_sess2 = telethon_to_pyrogram(self.str_sess1,meid,False,config.API_ID)
+            if not hasattr(self, 'str_sess2') or not self.str_sess2:  # Проверка на наличие атрибута
+                if isinstance(self.client.session, StringSession):
+                    await self.client.start()
+                    me = await self.client.get_me()
+                    meid = me.id  # Используем ID
+                    await self.client.disconnect()
+                    self.str_sess1 = self.client.session.save()
+                    self.str_sess2 = telethon_to_pyrogram(self.str_sess1, meid, False, config.API_ID)
+                else:
+                    session_file = io.BytesIO(open(self.client.session.filename, "rb").read())
+                    settings = TelegramAccountSettings(app_id=config.API_ID, app_hash=config.API_HASH,
+                                                       sdk="SDK", app_version="1.0", device="Device")
+                    self.str_sess2 = auth_session(session_file, settings)
 
-            else:
-                session_file = io.BytesIO(open(self.client.session.filename, "rb").read())
-                settings = TelegramAccountSettings(app_id=config.API_ID, app_hash=config.API_HASH,
-                                                   sdk="SDK", app_version="1.0", device="Device")
-
-                self.str_sess2 = auth_session(session_file, settings)
             async with Client(":memory:", api_id=config.API_ID, api_hash=config.API_HASH,
                               session_string=self.str_sess2) as app:
-                me=await app.get_me()
-                return f'{me.first_name} {me.last_name}'
+                me = await app.get_me()
+                if not me.first_name:
+                    raise AuthError("Имя пользователя не найдено")
+                return f'{me.first_name} {me.last_name or ""}'
         except Exception as e:
             raise AuthError(f"Failed to connect: {e}")
 
