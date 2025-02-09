@@ -12,3 +12,4 @@ aiocfscrape==1.0.0
 aiofiles
 pywin32; platform_system == "Windows"
 stream_sqlite
+pydantic
