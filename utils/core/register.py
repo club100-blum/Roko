@@ -1,6 +1,6 @@
 from telethon import TelegramClient
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-from utils.core import logger
+from utils.core.logger import logger
 from data import config
 import base64
 from aiohttp import ClientSession

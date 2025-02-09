@@ -1,8 +1,8 @@
 import sys
-from .register import logging_info
 from loguru import logger
 
 async def logging(text):
+    from utils.core.register import logging_info
     await logging_info()
     logger.warning(text)
 def logging_setup():
@@ -14,3 +14,5 @@ def logging_setup():
 
 
 logging_setup()
+
+__all__ = ["logger"]
