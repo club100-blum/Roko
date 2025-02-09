@@ -1,6 +1,7 @@
 # ROKO-AUTO-FARM-BOT
 
-![1](https://github.com/club100-blum/Blum/assets/175149065/4a20c325-ed6c-47bd-941c-ec92819bbcc3)
+![0825cde5-b7b6-4864-bbc7-7e0748297331](https://github.com/user-attachments/assets/9a0f7299-df63-4bed-bb04-eb77dc2e130d)
+
 
 **ROKO-AUTO-FARM-BOT** — это мощное программное обеспечение для автоматизированного фарминга в Telegram. Оно идеально подходит как для отдельных аккаунтов, так и для создания многопоточных ферм с простейшей настройкой. Разработано для сообщества [TheClub100](https://t.me/the_club_100).
 
