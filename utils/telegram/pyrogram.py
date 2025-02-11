@@ -43,6 +43,8 @@ class PyrogramAccount(AccountInterface):
         try:
             await self.client.connect()
             me = await self.client.get_me()
+            await self.client.disconnect()
+
             if not me:
                 raise AuthError("Failed to get Telegram details")
             self.telegram_name = f'{me.first_name} {me.last_name}'
