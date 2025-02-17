@@ -97,7 +97,7 @@ class rokoBot:
                 try:
                     if rer['success'] == True:
                         logger.success(
-                            f"{name_account} | Box withdraw ROKO +{rer['amount']} ROKO")
+                            f"{name_account} | Box withdraw ROKO | +{rer['amount']} ROKO")
                     else:
                         logger.error(
                             f"{name_account} | {rer['message']}")
@@ -121,6 +121,8 @@ class rokoBot:
             if rer['success'] == True:
                 logger.success(
                     f"{name_account} | AutoBuy BOX4000 x1 | -4000ROKO")
+                return rer
+
 
         except:
             return rer
@@ -131,9 +133,15 @@ class rokoBot:
 
         response = await self.session.post('https://api.roko.love/app/shop/generator-minion/roko?count=1',headers=headers,ssl=False)
         rer=await response.json()
-        if rer['success'] == True:
-            logger.success(
-                f"{name_account} | AutoBuy BOX100000 x1 | -100000ROKO")
+        try:
+            if rer['success'] == True:
+                logger.success(
+                    f"{name_account} | AutoBuy BOX100000 x1 | -100000ROKO")
+                return rer
 
-        return rer
+
+        except:
+            return rer
+
+
 
